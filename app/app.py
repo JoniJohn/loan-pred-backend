@@ -1,9 +1,25 @@
 from flask import Flask, render_template, json, jsonify, request
 import flask
+import pandas as pd
 import os
+
+import data_access.loanees_access as la 
 
 app = Flask(__name__)
 
+@app.route('/loanee')
+def getLoanees():
+	loanees_dic = la.getLoaneesDic()
+	response = app.response_class(
+		response = json.dumps(loanees_dic),
+		status=200,
+		mimetype='application/json'
+	)
+	return response
+
+@app.route('/loanee')
+def postLoanee():
+	pass
 
 @app.route('/')
 def index():
