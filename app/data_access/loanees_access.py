@@ -5,6 +5,3 @@ def getLoaneesDic():
     loanees = df[:4]
     loanees_dic = loanees.to_dict('records')
     return loanees_dic
-
-def willRepayLoan(loane_details):
-    return loane_details

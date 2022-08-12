@@ -4,6 +4,7 @@ import pandas as pd
 import os
 
 import data_access.loanees_access as la 
+import predictors.predict_will_pay as pwp
 
 app = Flask(__name__)
 
@@ -19,9 +20,14 @@ def getLoanees():
 		return response
 
 	if request.method == 'POST':
-		req_body = request.get_data()
-		will_repay = la.willRepayLoan(req_body)
-		return will_repay
+		req_body = request.json
+		pred = pwp.predict(req_body)
+		response = app.response_class(
+			response = json.dumps({"prediction":str(pred)}),
+			status=200,
+			mimetype='application/json'
+		)
+		return response
 
 @app.route('/')
 def index():
