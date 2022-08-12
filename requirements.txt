@@ -8,7 +8,7 @@ click
 colorama==0.4.5
 cycler==0.11.0
 dill
-Flask==2.2.1
+Flask
 flatbuffers==1.12
 fonttools==4.34.4
 gast==0.4.0
