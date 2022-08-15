@@ -1,6 +1,5 @@
 from flask import Flask, render_template, json, jsonify, request
 import flask
-import pandas as pd
 import os
 
 import data_access.loanees_access as la 
@@ -8,7 +7,7 @@ import predictors.predict_will_pay as pwp
 
 app = Flask(__name__)
 
-@app.route('/loanee', methods=['GET', 'POST'])
+@app.route('/test/data', methods=['GET'])
 def getLoanees():
 	if request.method == 'GET':
 		loanees_dic = la.getLoaneesDic()
@@ -19,6 +18,8 @@ def getLoanees():
 		)
 		return response
 
+@app.route('/predict', methods=['POST'])
+def predict():
 	if request.method == 'POST':
 		req_body = request.json
 		pred = pwp.predict(req_body)

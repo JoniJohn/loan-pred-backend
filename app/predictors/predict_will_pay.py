@@ -1,12 +1,13 @@
-from operator import index
 import pandas as pd
 import numpy as np
-from keras import models
+import joblib
+
 import data.preparing_data as cd
+
 
 def predict(data):
     df = pd.DataFrame(data, index=[0])
-    model = models.load_model("./data")
+    model = joblib.load("./app/data/lr_model.sav")
 
     df_cleaned = cd.cleaningData(df)
 
@@ -14,6 +15,10 @@ def predict(data):
     x_test = df_cleaned[predictors_logistics].values
     np_test = np.array(x_test)
 
-    res = model.predict(np_test)
+    probability = model.predict_proba(np_test)
+    print(probability)
 
-    return res[0][0]
+    prediction = model.predict(np_test)
+    print(prediction)
+
+    return prediction[0]

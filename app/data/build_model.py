@@ -1,18 +1,10 @@
 import pandas as pd
-import numpy as np
-
-from keras.models import Sequential
-from keras.layers import Dense
+from sklearn.linear_model import LogisticRegression
+import joblib
 
 import preparing_data as cd
 
-model = Sequential()
-
-model.add(Dense(1, input_shape=(4,), activation='sigmoid'))
-
-model.compile(loss='binary_crossentropy', optimizer='sgd', metrics=['accuracy'])
-
-model.summary()
+model = LogisticRegression()
 
 df_train = pd.read_csv('train.csv')
 print("Training DataFrame:")
@@ -31,10 +23,10 @@ x_test = x_data[300:]
 y_train = y_data[:300]
 y_test = y_data[300:]
 
-model.fit(x_train, y_train, epochs=200)
+model.fit(x_train, y_train)
 
-accuracy = model.evaluate(x_test, y_test)[1]
+accuracy = model.score(x_test, y_test)
 
 print("Accuracy: ", accuracy)
 
-model.save('.')
+joblib.dump(model, 'lr_model.sav')
