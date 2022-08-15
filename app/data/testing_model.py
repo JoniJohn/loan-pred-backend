@@ -1,9 +1,10 @@
 import numpy as np
-from keras import models
 import pandas as pd
+import joblib
+
 import preparing_data as cd
 
-model = models.load_model(".")
+model = joblib.load("lr_model.sav")
 
 test_df = pd.read_csv('test.csv')
 
@@ -11,9 +12,11 @@ test_cleaned = cd.cleaningData(test_df)
 
 predictors_logistics = ['Credit_History', 'Education', 'Gender', 'Property_Area']
 x_test = test_cleaned[predictors_logistics].values
-print(x_test)
+
 np_test = np.array(x_test)
 
-res = model.predict(np_test)
+prob = model.predict_proba(np_test)
 
-print(res)
+pred = model.predict(np_test)
+
+print((prob, pred))

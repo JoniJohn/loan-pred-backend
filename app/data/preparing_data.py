@@ -28,7 +28,10 @@ def cleaningData(df):
     # Impute missing values for Credit_History
     df['Credit_History'].fillna(df['Credit_History'].mode()[0],inplace=True)
     # Convert all non-numeric values to number
+    # cat=['Gender','Married','Dependents','Education','Self_Employed','Credit_History','Property_Area', 'Loan_Status']
+
     cat = pd.Categorical(df)
+    # print("cats: ",)
 
     for var in cat:
         le = preprocessing.LabelEncoder()
