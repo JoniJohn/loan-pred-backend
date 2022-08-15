@@ -1,6 +1,7 @@
 *.pyc
 *.swp
 .DS_STORE
-venv
+kenv
+env
 .idea
 otehrvenv

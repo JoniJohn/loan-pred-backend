@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import joblib
 
-import data.preparing_data as cd
+import app.data.preparing_data as cd
 
 
 def predict(data):
@@ -21,4 +21,4 @@ def predict(data):
     prediction = model.predict(np_test)
     print(prediction)
 
-    return prediction[0]
+    return ("N" if prediction[0] == 0 else "Y", probability[0][prediction[0]])
