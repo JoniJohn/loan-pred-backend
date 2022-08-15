@@ -2,8 +2,8 @@ from flask import Flask, render_template, json, jsonify, request
 import flask
 import os
 
-import data_access.loanees_access as la 
-import predictors.predict_will_pay as pwp
+import app.data_access.loanees_access as la 
+import app.predictors.predict_will_pay as pwp
 
 app = Flask(__name__)
 
@@ -24,7 +24,7 @@ def predict():
 		req_body = request.json
 		pred = pwp.predict(req_body)
 		response = app.response_class(
-			response = json.dumps({"prediction":str(pred)}),
+			response = json.dumps({"prediction":str(pred[0]), "confidence": str(pred[1])}),
 			status=200,
 			mimetype='application/json'
 		)
