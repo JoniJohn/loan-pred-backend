@@ -29,4 +29,4 @@ accuracy = model.score(x_test, y_test)
 
 print("Accuracy: ", accuracy)
 
-joblib.dump(model, 'lr_model.sav')
+# joblib.dump(model, 'lr_model.sav')
