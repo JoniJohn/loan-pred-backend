@@ -1,4 +1,5 @@
 from flask import Flask, render_template, json, jsonify, request
+from flask_cors import CORS
 import flask
 import os
 
@@ -6,6 +7,7 @@ import app.data_access.loanees_access as la
 import app.predictors.predict_will_pay as pwp
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origin": "*"}})
 
 @app.route('/test/data', methods=['GET'])
 def getTestData():
@@ -16,7 +18,7 @@ def getTestData():
 			status=200,
 			mimetype='application/json',
 		)
-		return response.headers.add('Access-Control-Allow-Origin', '*')
+		return response
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -28,7 +30,7 @@ def predict():
 			status=200,
 			mimetype='application/json'
 		)
-		return response.headers.add('Access-Control-Allow-Origin', '*')
+		return response
 
 @app.route('/')
 def index():
