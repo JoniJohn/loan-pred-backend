@@ -8,15 +8,15 @@ import app.predictors.predict_will_pay as pwp
 app = Flask(__name__)
 
 @app.route('/test/data', methods=['GET'])
-def getLoanees():
+def getTestData():
 	if request.method == 'GET':
 		loanees_dic = la.getLoaneesDic()
 		response = app.response_class(
 			response = json.dumps(loanees_dic),
 			status=200,
-			mimetype='application/json'
+			mimetype='application/json',
 		)
-		return response
+		return response.headers.add('Access-Control-Allow-Origin', '*')
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -28,7 +28,7 @@ def predict():
 			status=200,
 			mimetype='application/json'
 		)
-		return response
+		return response.headers.add('Access-Control-Allow-Origin', '*')
 
 @app.route('/')
 def index():
